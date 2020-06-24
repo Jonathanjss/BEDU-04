@@ -1,37 +1,61 @@
-stateValue = True
-productsList = []
+import sys
+productList = []
 taxValue = 0.16
 
-def addProduct():
-  name = input("Enter product name: ")
-  price = float(input("Enter product price: "))
-  quantity = int(input("Enter quantity of this product: "))
-  product = {
-    "name" : name,
-    "price" : price,
-    "quantity" : quantity,
-    "total": (price + (price*taxValue)) * quantity
-  }
-  productsList.append(product)
+def menuApp():
+  print('What would you like to do?\n\t1) Add a product.\n\t2) Show products list.\n\t3) Exit.\n')
+  userSelection = int(input('Please choose an option: '))
+  checkUserSelection(userSelection)
 
-def printProducts():
-  qtyTotal = 0
-  priceTotal = 0
-  print(f'\n\nYour products list: \n')
-  for element in productsList:
-    qtyTotal += element["quantity"]
-    priceTotal += element["total"]
-    print(f'Product Name: {element["name"]}\nTax-free price: {element["price"]}\nQuantity: {element["quantity"]}\nTotal: {element["total"]}\n\n')
-  print(f'Total of products you bought {qtyTotal}\nTotal to be paid is {priceTotal}')
-
-while stateValue:
-  decision = input("Would you like to add a product? Yes/No: ")
-  decision = decision.lower()
-  if decision == "yes":
+def checkUserSelection(userSelection):
+  if userSelection == 1:
     addProduct()
-  elif decision == "no":
-    printProducts()
-    stateValue = False
+  elif userSelection == 2:
+    showProductsList()
+  elif userSelection == 3:
+    print('Bye.')
+    sys.exit()
   else:
-    print('That\'s not a valid answer. Try again\n')
-    continue
+    userSelection = int(input('Non-valid option. Please enter a valid option: '))
+    checkUserSelection(userSelection)
+
+def addProduct():
+  productName = input('Product name: ')
+  productPrice = float(input('Product price: '))
+  productQty = int(input('Quantity of the product: '))
+  product = {
+    "productName": productName,
+    "productPrice": productPrice,
+    "productQty": productQty,
+    "totalPrice": (productPrice + (productPrice * taxValue)) * productQty
+  }
+  productList.append(product)
+  print('\nPRODUCT ADDED TO THE LIST!\n')
+  print('What would you like to do?\n\t1) Add other product.\n\t2) Show product list.\n\t3) Exit.\n')
+  userSelection = int(input('Please choose an option: '))
+  checkUserSelection(userSelection)
+
+def showProductsList():
+  if len(productList) == 0:
+    print('\nYour list is empty :(\n')
+    menuApp()
+  else:
+    totalPrice = 0
+    totalQty = 0
+    print('\n----------PRODUCTS----------')
+    for product in productList:
+      for productIndex in product.keys():
+        if productIndex == 'productName':
+          print(f'Name: {product[productIndex]}')
+        elif productIndex == 'productPrice':
+          print(f'Price: {product[productIndex]}')
+        elif productIndex == 'productQty':
+          totalQty += product[productIndex]
+          print(f'Qty: {product[productIndex]}')
+        else:
+          totalPrice += product[productIndex]
+          print(f'Total with taxes: {product[productIndex]}\n----------------------------')
+    print(f'You have {totalQty} products in your list.\nMount of these products is {totalPrice}\n')
+    menuApp()
+
+menuApp()

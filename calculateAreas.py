@@ -8,7 +8,7 @@ def calcSquareArea():
     side = float(input('Please enter the size of the square side: '))
     squareArea = side ** 2
     print(f'\nSquare area is {squareArea} m^2')
-    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Exit.')
+    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Show results history.\n\t4) Exit.')
     functionState = 'square'
     getResults(functionState, squareArea)
     nextAction(functionState)
@@ -19,7 +19,7 @@ def calcRentangleArea():
     width = float(input('Please enter the width of the rectangle: '))
     rectangleArea = length * width
     print(f'\nRectangle area is {rectangleArea} m^2')
-    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Exit.')
+    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Show results history.\n\t4) Exit.')
     functionState = 'rectangle'
     getResults(functionState, rectangleArea)
     nextAction(functionState)
@@ -30,7 +30,7 @@ def calcTriangleArea():
     base = float(input('Please enter the width of the rectangle: '))
     triangleArea = (length * base) / 2
     print(f'\nTriangle area is {triangleArea} m^2')
-    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Exit.')
+    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Show results history.\n\t4) Exit.')
     functionState = 'triangle'
     getResults(functionState, triangleArea)
     nextAction(functionState)
@@ -40,7 +40,7 @@ def calcCircleArea():
     radius = float(input('Please enter the circle radius: '))
     circleArea = math.pi * (math.pow(radius, 2))
     print(f'\nCircle area is {circleArea} m^2')
-    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Exit.')
+    print('\n\nWhat would you like to do?\n\t1) Calculate area again.\n\t2) Calculate area of another figure.\n\t3) Show results history.\n\t4) Exit.')
     functionState = 'circle'
     getResults(functionState, circleArea)
     nextAction(functionState)
@@ -62,6 +62,8 @@ def afterCalcArea(userSelection,functionState):
     elif userSelection == 2:
         initApp()
     elif userSelection == 3:
+        showResults()
+    elif userSelection == 4:
         print("Bye")
         sys.exit()
     else:
@@ -89,6 +91,7 @@ def afterShowingResults(userSelection):
 
 def showResults():
     print('##### LIST OF RESULTS #####')
+    print(f'{len(resultsList)} elements in the list.')
     if len(resultsList) == 0:
         print('Your result list is empty\n')
         print('\nWhat would you like to do?\n\t1) Calculate area of a figure.\n\t2) Exit.')
@@ -121,7 +124,7 @@ def menuApp(userSelection):
 def initApp():
     while True:
         print('Which figure would you like to calculate its area from?')
-        print('\t1) Square\n\t2) Rectangle\n\t3) Triangle\n\t4) Circle\n\t5) Show results list\n\t6) None (Exit).\n')
+        print('\t1) Square.\n\t2) Rectangle.\n\t3) Triangle.\n\t4) Circle.\n\t5) Show results list.\n\t6) None (Exit).\n')
         userSelection = int(input('Please choose an option: '))
         menuApp(userSelection)
         while True:
